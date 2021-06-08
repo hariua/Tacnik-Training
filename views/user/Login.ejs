@@ -1,0 +1,18 @@
+<%- include ('../partials/user-header') %> 
+<div class="container">
+    <h1 class="text-white text-center mt-5">LOGIN</h1>
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 5%;margin-left: 25%;">
+            <form method="POST" action="/login" class=" text-white alert border-white m-2">
+                <label class="">Email</label>
+                <input type="email" name="Email" class="form-control">
+                <label class="">Password</label>
+                <input type="password" id="Password" name="Password" class="form-control">
+                <input type="submit" class="btn btn-primary w-100 mt-2" value="Login">
+                <a class="text-center text-white mt-2" href="/register" style="text-decoration: none;">Don't Have an Account?</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include ('../partials/user-footer') %> 

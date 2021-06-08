@@ -1,0 +1,37 @@
+<%- include ('../partials/user-header') %> 
+<div class="container">
+    <h1 class="text-white text-center mt-5">REGISTER</h1>
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 5%;margin-left: 25%;">
+            <form method="POST" action="/register" class=" text-white alert border-white m-2">
+                <label class="">Name</label>
+                <input type="text" name="Name" class="form-control" required>
+                <label class="">Email</label>
+                <input type="email" name="Email" class="form-control" required>
+                <label class="">Password</label>
+                <input type="password" id="Password" name="Password" class="form-control" required> 
+                <label class="">Confirm Password</label>
+                <input type="text" name="ConfirmPassword" onchange="changePassword(event)" class="form-control" required>
+                <p class="text-warning" id="errMsg" hidden>Password Doesn't Match</p>
+                <input id="submitBtn" type="submit"  class="btn btn-primary w-100 mt-2" value="Submit">
+                <a class="text-center text-white mt-2" href="/login" style="text-decoration: none;">Already Have an Account?</a>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function changePassword(event)
+    {
+       let psd =  document.getElementById("Password").value
+       if(event.target.value!=psd)
+       {
+           document.getElementById('errMsg').hidden=false
+           document.getElementById('submitBtn').hidden=true
+       }else{
+        document.getElementById('errMsg').hidden=true
+        document.getElementById('submitBtn').hidden=false
+       }
+    }
+    
+</script>
+<%- include ('../partials/user-footer') %> 

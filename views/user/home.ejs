@@ -1,0 +1,22 @@
+<%- include('../partials/user-header') %>
+<div class="container">
+  <div
+    class="alert border-white m-2"
+    style="display: flex; justify-content: space-between"
+  >
+    <% if (user.Name) { %>
+        <h3 class="text-white"><%= user.Name %></h3>
+    <% }else { %>
+        <h3 class="text-white">User Name</h3> 
+        <% } %> 
+    <a class="btn btn-danger" href="/logout">Logout</a>
+  </div>
+  <div class="row text-center">
+    <div class="col-md-7" style="margin-top: 18%; margin-left: auto; margin-right: auto;">
+      <div class="alert border-primary">
+        <h2 class="text-white it">Welcome to Home Page</h2>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../partials/user-footer')%>
