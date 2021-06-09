@@ -1,7 +1,9 @@
 const db = require('../Connection/connection')
+const objectId = require('mongodb').ObjectID
 const collection = require('../Connection/collection')
 const bcrypt = require('bcrypt')
 const e = require('express')
+const { request } = require('express')
 module.exports = {
     registerUser: (data) => {
         return new Promise(async (resolve, reject) => {
@@ -36,5 +38,18 @@ module.exports = {
                 reject()
             }
         })
+    },
+    statusChange:async(status,id)=>
+    {
+        await db.get().collection(collection.USERINFO_COLLECTION).updateOne({_id:objectId(id)},{
+            $set:{
+                Status:status
+            }
+        })
+    },
+    getUserStatus:async(id)=>
+    {
+       let user = await db.get().collection(collection.USERINFO_COLLECTION).findOne({_id:objectId(id)})
+       return user.Status
     }
 }

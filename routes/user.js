@@ -28,9 +28,10 @@ router.get('/register', (req, res) => {
 router.get('/login', (req, res) => {
     res.render('user/Login', { title: "Login Page" })
 })
-router.get('/home', userAuthenticate, (req, res) => {
-    let data = { Name: req.cookies.user }
-    res.render('user/home', { user: data, title: "Home Page" })
+router.get('/home', userAuthenticate, async(req, res) => {
+    let data = { Name: req.session.user.Name }
+    let status = await userHelper.getUserStatus(req.session.user.Id)
+    res.render('user/home', { layout:'../views/Layouts/homeLayout.ejs',user: data, title: "Home Page",status:status })
 })
 router.post('/register', (req, res) => {
     userHelper.registerUser(req.body).then(async (response) => {
@@ -42,8 +43,8 @@ router.post('/register', (req, res) => {
 router.post('/login', (req, res) => {
     userHelper.loginUser(req.body).then(async (data) => {
         let token = await jwt.sign(data, 'SECRET123')
+        req.session.user= {Name:data.Name,Id:data._id,Email:data.Email}
         res.cookie('jwt', token, { maxAge: 9000000, httpOnly: true })
-        res.cookie('user', data.Name, { maxAge: 9000000, httpOnly: true })
         res.redirect('/home')
     }).catch(() => {
         res.redirect('/login')
@@ -51,7 +52,12 @@ router.post('/login', (req, res) => {
 })
 router.get('/logout', (req, res) => {
     res.clearCookie('jwt')
-    res.clearCookie('user')
+    req.session.user=null
     res.redirect('/login')
+})
+router.post('/statusChange',userAuthenticate,async(req,res)=>
+{
+    await userHelper.statusChange(req.body.Status,req.session.user.Id)
+    res.redirect('/home')
 })
 module.exports = router

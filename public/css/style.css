@@ -25,3 +25,17 @@ body {
   padding: 1em;
   border-radius: 2em 0.8em;
 }
+.statusBox{
+  margin: 0.7em;
+  border: 2px solid cornsilk;
+  background-color: wheat;
+  border-radius: 1em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.userStatusList{
+  border: 2px solid ghostwhite;
+  min-height: 200px;
+  margin-top: 1em;
+}
