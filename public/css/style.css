@@ -25,7 +25,7 @@ body {
   padding: 1em;
   border-radius: 2em 0.8em;
 }
-.statusBox{
+.statusBox {
   margin: 0.7em;
   border: 2px solid cornsilk;
   background-color: wheat;
@@ -34,8 +34,25 @@ body {
   flex-direction: row;
   justify-content: space-evenly;
 }
-.userStatusList{
+.userStatusList {
   border: 2px solid ghostwhite;
   min-height: 200px;
   margin-top: 1em;
+}
+.listItem {
+  
+}
+.ulList {
+  list-style-type: none;
+  padding: 0px;
+}
+.activeStatusList,.busyStatusList,.breakStatusList,.inactiveStatusList {
+  border: 1px solid grey;
+  padding: 0.5em;
+  margin: auto;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4px;
 }

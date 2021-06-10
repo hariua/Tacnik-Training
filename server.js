@@ -5,6 +5,7 @@ const session = require('express-session')
 const socketio = require('socket.io')
 const expressLayout = require('express-ejs-layouts')
 const db = require('./Connection/connection')
+const collection = require('./Connection/collection')
 const cookieParser = require('cookie-parser')
 const http = require('http')
 const app = express()
@@ -30,10 +31,13 @@ db.connect((err)=>
 })
 io.on('connection',socket=>
 {
-    socket.on('just',data=>
+    socket.on('userRequest',async data=>
     {
-        console.log("Socket Connection New");
+        let list = await db.get().collection(collection.USERINFO_COLLECTION).find({Status:{$in:['Active','Break','Busy','Inactive']}}).toArray()
+        io.emit('userList',list)
     })
+    
+
 })
 app.use(session({
     key:'user',

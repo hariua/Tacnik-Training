@@ -12,50 +12,57 @@
   </div>
   <div class="statusBox col-10 col-md-6 container-fluid">
     <h5 class="m-auto">
-      Status : <% if (status=='Active') { %>
-      <span class="text-success"><%= status %> </span>
-      <% } else if (status=='Busy') { %>
-      <span class="text-primary"><%= status %> </span>
-      <% } else if (status=='Break') { %>
-      <span class="text-warning"><%= status %> </span>
-      <% } else { %>
-      <span class="text-danger"><%= status %> </span>
-      <% } %>
+      Status : <span id="statusDefault"><%= status %> </span>
+      <span id="Active" class="text-success" hidden>Active </span>
+      <span id="Busy" class="text-primary" hidden>Busy </span>
+      <span id="Break" class="text-warning" hidden>Break </span>
+      <span id="Inactive" class="text-danger" hidden>Inactive </span>
     </h5>
     <div class="col-md-7 col-8" style="margin: auto">
-      <form
-        action="/statusChange"
-        method="POST"
-        style="display: flex; flex-direction: row; margin: auto"
+      <select
+        name="Status"
+        onchange="statusChange(event)"
+        class="form-control"
+        required
       >
-        <select name="Status" class="form-control" required>
-          <option value="">Select An Option</option>
-          <option value="Active">Active</option>
-          <option value="Busy">Busy</option>
-          <option value="Break">Break</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-        <input type="submit" class="btn btn-primary ml-1" value="ok" />
-      </form>
+        <option value="">Select An Option</option>
+        <option value="Active">Active</option>
+        <option value="Busy">Busy</option>
+        <option value="Break">Break</option>
+        <option value="Inactive">Inactive</option>
+      </select>
     </div>
   </div>
   <div class="container-fluid">
     <h3 class="text-white text-center">User List & Status</h3>
-    <div
-      class="row"
-      style="justify-content: space-between; align-items: center"
-    >
-      <div class="col-md-3 col-6 userStatusList">
+    <div class="row" style="justify-content: space-evenly; align-items: center">
+      <div class="col-md-5 col-5 userStatusList">
         <p class="h5 text-center text-white mt-2">Active Users</p>
+        <ul class="ulList">
+          <div class="activeList">
+          </div>
+        </ul>
       </div>
-      <div class="col-md-3 col-6 userStatusList">
+      <div class="col-md-5 col-5 userStatusList">
         <p class="h5 text-center text-white mt-2">Busy Users</p>
+        <ul class="ulList">
+          <div class="busyList">
+          </div>
+        </ul>
       </div>
-      <div class="col-md-3 col-6 userStatusList">
+      <div class="col-md-5 col-5 userStatusList">
         <p class="h5 text-center text-white mt-2">Break Users</p>
+        <ul class="ulList">
+          <div class="breakList">
+          </div>
+        </ul>
       </div>
-      <div class="col-md-3 col-6 userStatusList">
+      <div class="col-md-5 col-5 userStatusList">
         <p class="h5 text-center text-white mt-2">Inactive Users</p>
+        <ul class="ulList">
+          <div class="inactiveList">
+          </div>
+        </ul>
       </div>
     </div>
   </div>

@@ -44,13 +44,15 @@ router.post('/login', (req, res) => {
     userHelper.loginUser(req.body).then(async (data) => {
         let token = await jwt.sign(data, 'SECRET123')
         req.session.user= {Name:data.Name,Id:data._id,Email:data.Email}
+        await userHelper.statusChange("Active",req.session.user.Id)
         res.cookie('jwt', token, { maxAge: 9000000, httpOnly: true })
         res.redirect('/home')
     }).catch(() => {
         res.redirect('/login')
     })
 })
-router.get('/logout', (req, res) => {
+router.get('/logout', async(req, res) => {
+    await userHelper.statusChange("Inactive",req.session.user.Id)
     res.clearCookie('jwt')
     req.session.user=null
     res.redirect('/login')
@@ -58,6 +60,6 @@ router.get('/logout', (req, res) => {
 router.post('/statusChange',userAuthenticate,async(req,res)=>
 {
     await userHelper.statusChange(req.body.Status,req.session.user.Id)
-    res.redirect('/home')
+    res.json({status:req.body.Status})
 })
 module.exports = router
