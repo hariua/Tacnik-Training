@@ -6,6 +6,7 @@ const socketio = require('socket.io')
 const expressLayout = require('express-ejs-layouts')
 const db = require('./Connection/connection')
 const collection = require('./Connection/collection')
+const userHelper = require('./Controller/userHelper')
 const cookieParser = require('cookie-parser')
 const http = require('http')
 const app = express()
@@ -33,6 +34,13 @@ io.on('connection',socket=>
 {
     socket.on('userRequest',async data=>
     {
+        await userHelper.socketUserConnection(socket.id,data)
+        let list = await db.get().collection(collection.USERINFO_COLLECTION).find({Status:{$in:['Active','Break','Busy','Inactive']}}).toArray()
+        io.emit('userList',list)
+    })
+    socket.on('disconnect',async()=>
+    {
+        await userHelper.socketDisconnectStatusChange(socket.id)
         let list = await db.get().collection(collection.USERINFO_COLLECTION).find({Status:{$in:['Active','Break','Busy','Inactive']}}).toArray()
         io.emit('userList',list)
     })

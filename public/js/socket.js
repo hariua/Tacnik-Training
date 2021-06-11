@@ -1,22 +1,15 @@
 const socket = io.connect()
-socket.emit('userRequest', 'sir')
+let userId = document.getElementById('userId').innerHTML
+socket.emit('userRequest', userId)
 socket.on('userList', data => {
     $('.activeStatusList').remove()
     $('.breakStatusList').remove()
     $('.busyStatusList').remove()
     $('.inactiveStatusList').remove()
     data.forEach((item, i) => {
-        if (item.Status == 'Active') {
-            activeUserList(item)
-        } else if (item.Status == 'Busy') {
-            busyUserList(item)
-        } else if (item.Status == 'Break') {
-            breakUserList(item)
-        } else {
-            inactiveUserList(item)
-        }
+        userListDisplay(item)
     })
-    
+
 })
 function statusChange(event) {
     let status = event.target.value
@@ -54,7 +47,7 @@ function statusChange(event) {
                     document.getElementById('Inactive').hidden = false
                     document.getElementById('statusDefault').hidden = true
                 }
-                socket.emit('userRequest', 'cha')
+                socket.emit('userRequest', userId)
 
             }
         })
@@ -62,31 +55,21 @@ function statusChange(event) {
     }
 
 }
-function activeUserList(item) {
+function userListDisplay(item) {
     const div = document.createElement('div')
-    div.classList.add('activeStatusList')
-    div.innerHTML = `<li class="listItem">${item.Name}</li>
-    <p class="text-success bg-success pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
-    document.querySelector('.activeList').appendChild(div)
-}
-function busyUserList(item) {
-    const div = document.createElement('div')
-    div.classList.add('busyStatusList')
-    div.innerHTML = `<li class="listItem">${item.Name}</li>
-    <p class="text-primay bg-primary pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
-    document.querySelector('.busyList').appendChild(div)
-}
-function breakUserList(item) {
-    const div = document.createElement('div')
-    div.classList.add('breakStatusList')
-    div.innerHTML = `<li class="listItem">${item.Name}</li>
-    <p class="text-warning bg-warning  pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
-    document.querySelector('.breakList').appendChild(div)
-}
-function inactiveUserList(item) {
-    const div = document.createElement('div')
-    div.classList.add('activeStatusList')
-    div.innerHTML = `<li class="listItem">${item.Name}</li>
-    <p class="text-danger bg-danger pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
-    document.querySelector('.inactiveList').appendChild(div)
+    div.classList.add(`${item.Status}StatusList`)
+    if (item.Status == "Active") {
+        div.innerHTML = `<li class="listItem">${item.Name}</li>
+        <p class="text-success bg-success pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
+    } else if (item.Status == 'Busy') {
+        div.innerHTML = `<li class="listItem">${item.Name}</li>
+        <p class="text-primary bg-primary pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
+    } else if (item.Status == 'Break') {
+        div.innerHTML = `<li class="listItem">${item.Name}</li>
+        <p class="text-warning bg-warning  pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
+    } else {
+        div.innerHTML = `<li class="listItem">${item.Name}</li>
+        <p class="text-danger bg-danger pl-2 pr-2 rounded-circle" style="margin-bottom: 0px;">s</p>`
+    }
+    document.querySelector(`.${item.Status}List`).appendChild(div)
 }

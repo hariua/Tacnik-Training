@@ -51,5 +51,40 @@ module.exports = {
     {
        let user = await db.get().collection(collection.USERINFO_COLLECTION).findOne({_id:objectId(id)})
        return user.Status
+    },
+    socketUserConnection:async(socketId,userId)=>
+    {
+        let socket = await db.get().collection(collection.SOCKETUSER_COLLECTION).findOne({UserId:userId})
+        if(socket)
+        {
+            if(socket.UserId!=socketId)
+            {
+                await db.get().collection(collection.SOCKETUSER_COLLECTION).updateOne({UserId:userId},{
+                    $set:{
+                        SocketId:socketId
+                    }
+                })
+            }
+        }
+        else{
+            let data = {
+                UserId:userId,
+                SocketId:socketId
+            }
+            await db.get().collection(collection.SOCKETUSER_COLLECTION).insertOne(data)
+        }
+    },
+    socketDisconnectStatusChange:async(socketId)=>
+    {
+        let socket = await db.get().collection(collection.SOCKETUSER_COLLECTION).findOne({SocketId:socketId})
+        if(socket)
+        {
+            let userId=socket.UserId.slice(0,24)
+            await db.get().collection(collection.USERINFO_COLLECTION).updateOne({_id:objectId(userId)},{
+                $set:{
+                    Status:"Inactive"
+                }
+            })
+        }
     }
 }

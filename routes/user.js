@@ -29,7 +29,7 @@ router.get('/login', (req, res) => {
     res.render('user/Login', { title: "Login Page" })
 })
 router.get('/home', userAuthenticate, async(req, res) => {
-    let data = { Name: req.session.user.Name }
+    let data = req.session.user
     let status = await userHelper.getUserStatus(req.session.user.Id)
     res.render('user/home', { layout:'../views/Layouts/homeLayout.ejs',user: data, title: "Home Page",status:status })
 })
