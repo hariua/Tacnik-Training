@@ -62,4 +62,8 @@ router.post('/statusChange',userAuthenticate,async(req,res)=>
     await userHelper.statusChange(req.body.Status,req.session.user.Id)
     res.json({status:req.body.Status})
 })
+router.get("/ui",(req,res)=>
+{
+    res.render('user/Login-ui',{title:"Login UI Page"})
+})
 module.exports = router
