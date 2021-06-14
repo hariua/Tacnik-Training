@@ -29,10 +29,11 @@ body {
   margin-bottom: 20%;
 }
 .RegBtn:hover {
-  animation: submitBtn 3s infinite ease-in;
+  animation: submitBtn 5s infinite ease-in;
   cursor: pointer;
-  padding: 0.5em 2.1em;
-  border-radius: 1em;
+  padding: 0.7em 2.3em;
+  border-radius: 1em 0.4em;
+  border: none;
 }
 @keyframes submitBtn {
   0% {
@@ -48,12 +49,13 @@ body {
   margin-right: 1em;
   border-radius: 2em;
   margin-bottom: 20%;
+  border: none;
 }
 .BackBtn:hover {
-  animation: BackBtn 3s infinite ease-in;
+  animation: BackBtn 5s infinite ease-in;
   cursor: pointer;
-  padding: 0.5em 2.1em;
-  border-radius: 1em;
+  padding: 0.7em 2.3em;
+  border-radius:  0.4em 1em;
 }
 @keyframes BackBtn {
   0% {
@@ -87,6 +89,15 @@ body {
     margin-top: 1em;
     border-radius: 2em;
     margin-bottom: 1em;
+    width: 80%;
+  }
+  .BackBtn {
+    padding: 0.4em 2em;
+    margin-top: 2em;
+    margin-right: 1em;
+    border-radius: 2em;
+    margin-bottom: 20%;
+    border: none;
     width: 80%;
   }
 }
