@@ -1,72 +1,92 @@
-body{
-    background: url('/images/background.jpeg');
-    background-repeat: no-repeat;
-    background-size:contain;
-    background-color: #0e2a3f
+body {
+  background: url("/images/background.jpeg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: #0e2a3f;
 }
-.regBox{
-    margin-top: 7%;
-    margin-left: auto;
-    margin-right: auto;
-    color: white;
+.regBox {
+  margin-top: 7%;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  font-family: sans-serif, "Helvetica Neue", "Lucida Grande", Arial;
+  font-stretch: ultra-expanded;
 }
-.headReg{
-    font-size: 3.5em;
-    font-weight: bold;
-    margin: 0%;
+.headReg {
+  font-size: 3.5em;
+  font-weight: bold;
+  margin: 0%;
 }
-.inputType{
-    border-radius: 0.6em;
-    margin-bottom: 1%;
+.inputType {
+  border-radius: 0.6em;
+  margin-bottom: 1%;
 }
-.RegBtn{
-padding: 0.4em 2em;
-margin-top: 2em;
-margin-right: 1em;
-border-radius: 2em;
-margin-bottom: 20%;
+.RegBtn {
+  padding: 0.4em 2em;
+  margin-top: 2em;
+  margin-right: 1em;
+  border-radius: 2em;
+  margin-bottom: 20%;
+}
+.RegBtn:hover {
+  animation: submitBtn 3s infinite ease-in;
+  cursor: pointer;
+  padding: 0.5em 2.1em;
+  border-radius: 1em;
+}
+@keyframes submitBtn {
+  0% {
+    background-color: yellowgreen;
+  }
+  100% {
+    background-color: forestgreen;
+  }
+}
+.BackBtn {
+  padding: 0.4em 2em;
+  margin-top: 2em;
+  margin-right: 1em;
+  border-radius: 2em;
+  margin-bottom: 20%;
+}
+.BackBtn:hover {
+  animation: BackBtn 3s infinite ease-in;
+  cursor: pointer;
+  padding: 0.5em 2.1em;
+  border-radius: 1em;
+}
+@keyframes BackBtn {
+  0% {
+    background-color: orangered;
+  }
+  100% {
+    background-color: red;
+  }
 }
 
-.img-footer{
-    z-index: 10;
-    width: 100%;
-    position: fixed;
-    top: 88%;
+.img-footer {
+  z-index: 10;
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
 }
-.btnGrp{
+.btnGrp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+@media only screen and (max-width: 500px) {
+  .btnGrp {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-}
-@media only screen and (max-width:900px)
-{
-    .img-footer{
-        z-index: 10;
-        width: 100%;
-        position: fixed;
-        top: 94%;
-    } 
-}
-@media only screen and (max-width:500px)
-{
-    .btnGrp{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    .RegBtn{
-        padding: 0.4em 2em;
-        margin-top: 1em;
-        border-radius: 2em;
-        margin-bottom: 1em;
-        width: 80%;
-        }
-
-        .img-footer{
-            z-index: 10;
-            width: 100%;
-            position: fixed;
-            top: 96%;
-        }
+    align-items: center;
+  }
+  .RegBtn {
+    padding: 0.4em 2em;
+    margin-top: 1em;
+    border-radius: 2em;
+    margin-bottom: 1em;
+    width: 80%;
+  }
 }
